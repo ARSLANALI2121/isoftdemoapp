@@ -1,0 +1,10 @@
+class Like < ApplicationRecord
+	# belongs_to :likeable, ploymorphic: true
+
+	belongs_to :user
+  belongs_to :likeable, polymorphic: true
+  # validates_presence_of :value, :user, :likeable
+  # validates :user_id, uniqueness: { scope: [:likeable_id, :likeable_type]
+
+
+end

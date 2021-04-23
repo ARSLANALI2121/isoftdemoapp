@@ -1,0 +1,17 @@
+
+
+<h1> Create Post </h1>
+
+
+<%= form_for @blog do |f| %>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Blog Title</label>
+		<%= f.text_field :title, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Blog Descrption</label>
+		<%= f.text_area :description, class:"form-control" %>
+  </div>
+  <%= f.file_field :image, class:"form-control" %>
+	<%= f.submit 'Create Post', class:"btn btn-primary" %>
+	<% end %>
