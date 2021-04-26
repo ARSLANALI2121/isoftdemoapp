@@ -1,15 +1,14 @@
-
-
 <% blog.comments.each do |comment| %>
   <div>
     <%= comment.comment %>
   </div>
   <%#= comment.created_at %>
+<div class="container"
 <% if  comment.id.present? %>
-  <%= button_to 'Like Comment', comment_likes_path(comment), method: :post %>
-  
-  <p><%= comment.likes.count %> <%= (comment.likes.count) == 1 ? 'Like' : 'Likes'%></p>
-  <%= link_to  'Edit Comment', edit_blog_comment_path(blog.id, comment.id) %>||
-  <%= link_to 'Delete', [comment.blog, comment], method: :delete %>
-  <% end %>
+<%= link_to  'Edit Comment', edit_blog_comment_path(blog.id, comment.id) %>||
+<%= link_to 'Delete', [comment.blog, comment], method: :delete %><br>
+<%= comment.likes.count %> <%= (comment.likes.count) == 1 ? 'Like' : 'Likes'%>
+<%= button_to 'Like Comment', comment_likes_path(comment), method: :post %>
+<% end %>  
+</div>
 <% end %>
