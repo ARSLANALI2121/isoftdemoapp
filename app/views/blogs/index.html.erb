@@ -19,10 +19,13 @@
 							<td><%= blog.user.email%></td>
               <td><%= link_to 'Show', blog %></td>
               <td>
+                <% if can? :update, blog %>
                 <%= link_to 'Edit', edit_blog_path(blog) %>
+                <% end %>
               </td>
-						
-                <td><%= link_to 'Delete', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% if can? :destroy, blog %>
+                <td><%= link_to 'Delete',blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
               </tr>
               <% end %>
               <%= link_to 'Create Post', new_blog_path %> ||

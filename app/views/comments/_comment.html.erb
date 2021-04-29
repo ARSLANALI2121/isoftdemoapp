@@ -1,14 +1,21 @@
-<% blog.comments.each do |comment| %>
-  <div>
+  <% blog.comments.each do |comment| %>
+  <div class="container pb-cmnt-container">
     <%= comment.comment %>
+    <% if comment.images.present? %>
+      <%= image_tag comment.images %>
+    <% end %>
+  <div class="container">
+    <% if  comment.id.present? %>
+      <%= button_to 'Like Comment', comment_likes_path(comment), method: :post %>
+      <p>
+      <%= comment.likes.count %> <%= (comment.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+    <% end %>
+  <%if can? :update, comment%>
+    <%= link_to  'Edit Comment', edit_blog_comment_path(blog.id, comment.id) %>||
+    <%= link_to 'Delete', [comment.blog, comment], method: :delete %>
+  <% end %>
   </div>
-  <%#= comment.created_at %>
-<div class="container"
-<% if  comment.id.present? %>
-<%= link_to  'Edit Comment', edit_blog_comment_path(blog.id, comment.id) %>||
-<%= link_to 'Delete', [comment.blog, comment], method: :delete %><br>
-<%= comment.likes.count %> <%= (comment.likes.count) == 1 ? 'Like' : 'Likes'%>
-<%= button_to 'Like Comment', comment_likes_path(comment), method: :post %>
-<% end %>  
-</div>
-<% end %>
+  </div>
+  <% end %>
+
+  

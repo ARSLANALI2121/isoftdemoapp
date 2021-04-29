@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+  # load_and_authorize_resource
   before_action :set_params, only: [:edit, :show, :update, :destroy] 
 
   def index
@@ -10,6 +11,7 @@ class BlogsController < ApplicationController
   end
 
   def show
+    @comment = @blog.comments
   end
 
   def edit
@@ -28,8 +30,6 @@ class BlogsController < ApplicationController
   end
 
 	def update
-    # byebug
-    @blog = Blog.find(params[:id])
 		if @blog.update(params_blog)
 			flash[:success]= "Post was successfully Updated."
       redirect_to blogs_path
@@ -38,6 +38,15 @@ class BlogsController < ApplicationController
         render 'edit'
 		end
 	end
+  def destroy
+    # byebug
+    if @blog.destroy
+      flash[:success]= "Post was successfully Deleted."
+      redirect_to blogs_path
+    else
+      flash[:error]= "Their is an Error"
+    end
+  end
 
   private
 

@@ -1,30 +1,32 @@
-<h1>Blogs#show</h1>
-<p>Find me in app/views/blogs/show.html.erb</p>
-<p id="notice"><%= notice %></p>	
-<div class="wall">
-	<% if @blog.image.present? %>
-	<%= image_tag @blog.image %>
-	<% end %>
-</div>
-<div>
-	<td><%= @blog.title%></td>
-</div>
-<div>
-	<%= @blog.description%><br>	 
+	<h1>Blogs#show</h1>
+	<p>Find me in app/views/blogs/show.html.erb</p>
+	<p id="notice"><%= notice %></p>	
+	<div class="wall">
+		<% if @blog.image.present? %>
+		<%= image_tag @blog.image %>
+		<% end %>
+	</div>
+	<div class="contrianer">
+		<td><%= @blog.title%></td><br>
+		<td><%= @blog.description%></td> 
+		<div class="contrainer">
+			<% if can? :update, @blog %> 
+				<%= link_to 'Edit', edit_blog_path %>||
+				<%= link_to 'New Post', new_blog_path %>
+			<% end %>	
+	</div>
 
 	<% pre_like = @blog.likes.find { |like| like.user_id == current_user.id} %> 	
 	<% if pre_like %>
   	<%= button_to 'Unlike', blog_like_path(@blog, pre_like), method: :delete %>
 	<% else %>
-  <%= button_to 'Like', blog_likes_path(@blog), method: :post %>
+  <%= button_to 'Like Blog', blog_likes_path(@blog), method: :post %>
 <% end %>
-<p><%= @blog.likes.count %> <%= (@blog.likes.count) == 1 ? 'Like' : 'Likes'%></p>
-		Total Comment: <%= @blog.comments.count %><br>				
-		Add Comments: <td><%= render 'comments/form' %></td>
-</div>
-<td><%= render 'comments/comment', blog: @blog %></td>
-	<div>
-		<%= link_to 'Edit', edit_blog_path %>||
-		<%= link_to 'New Post', new_blog_path %>
 
-	</div>
+<p><%= @blog.likes.count %> <%= (@blog.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+		Total Comment: <%= @blog.comments.count %><br>
+					
+		Add Comments: <td><%= render 'comments/form' %></td>	
+</div>
+<%= link_to 'Back To', blogs_path, class:"btn btn-success" %><br>
+<%= render 'comments/comment', blog: @blog %>

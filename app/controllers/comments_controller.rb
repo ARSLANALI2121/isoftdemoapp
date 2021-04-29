@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+	# load_and_authorize_resource :nested => :blog
 	def edit
 		# byebug
 		@comment = Comment.find(params[:id])
@@ -10,11 +10,12 @@ class CommentsController < ApplicationController
 		# byebug
 		@blog = Blog.find(params[:blog_id])
 		@comment = @blog.comments.create(comment_params)
+		@comment.user_id = current_user.id
 		if @comment.save
 			flash[:success] = "Comment successfully added"
 			redirect_to blog_path(@blog)
 		else
-			render 'new'
+			render partial: "comments/form"
 		end
 	end
 
@@ -39,7 +40,7 @@ class CommentsController < ApplicationController
 	private
 	
 		def comment_params
-			params.require(:comment).permit(:comment)
+			params.require(:comment).permit(:comment, :images)
 		end
 
 end

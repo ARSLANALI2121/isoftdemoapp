@@ -1,6 +1,7 @@
 <%= form_for([@blog, @blog.comments.build]) do |f| %>
 	<p>
 		<%= f.text_area :comment %>
+			<%= f.file_field :name, class:"form-control" %>	
 	</p><br>
 	<p>
 		<%= f.submit %>
